@@ -1,4 +1,3 @@
-// * The following API routes should be created:
 
 //    GET `/api/notes` - Should read the `db.json` file and return all saved notes as JSON.
 
@@ -8,19 +7,27 @@
 
 //require db.json
 var notes = require("../db/db");
+var fs = require("fs");
 
 module.exports = function(app){
     app.get("/api/notes", function(req, res){
+        fs.readFile()
         res.json(notes);
-    })
+    });
 
     app.post("/api/notes", function(req, res){
         notes.push(req.body);
-    })
+        fs.writeFile("./db/db.json", JSON.stringify(notes, null, 4), function(err){
+            if (err){
+                console.log(err);
+            } else {
+                res.json(req.body);
+            }
+        });
+    });
 
     app.delete("/api/notes/:id", function(req, res){
-        
         res.send("Got a delete request.")
-    })
+    });
 
 }
