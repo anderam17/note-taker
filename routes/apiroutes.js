@@ -32,7 +32,18 @@ module.exports = function(app){
     });
 
     app.delete("/api/notes/:id", function(req, res){
-        res.send("Got a delete request.")
+        let id = req.params.id;
+        
+        fs.readFile("./db/db.json", "utf8", (err, data) => {
+            data = JSON.parse(data);
+            data = data.filter(note => note.id !== id);
+            fs.writeFile("./db/db.json", JSON.stringify(data, null, 4), function(err){
+                if (err){
+                    console.log(err);
+                } else {
+                    res.json({});
+                }
+            });
+        });
     });
-
 }
