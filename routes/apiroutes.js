@@ -8,15 +8,20 @@
 //require db.json
 var notes = require("../db/db");
 var fs = require("fs");
+const shortid = require('shortid');
 
 module.exports = function(app){
     app.get("/api/notes", function(req, res){
-        fs.readFile()
         res.json(notes);
     });
 
     app.post("/api/notes", function(req, res){
+        // notes.this.id = shortid.generate();
+        req.body.id = shortid.generate();
+        console.log(shortid.generate());
+
         notes.push(req.body);
+
         fs.writeFile("./db/db.json", JSON.stringify(notes, null, 4), function(err){
             if (err){
                 console.log(err);
