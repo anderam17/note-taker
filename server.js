@@ -10,8 +10,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //points server to files in the routes folder
-require("/routes/apiRoutes.js")(app);
-require("/routes/htmlRoutes.js")(app);
+require("./routes/apiRoutes.js")(app);
+require("./routes/htmlRoutes.js")(app);
 
 //set server to listen
 app.listen(PORT, function(){
